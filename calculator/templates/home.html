@@ -2,15 +2,27 @@
 
 {% block content %}
     <form action="{% url 'result' %}">
-        <div class="form-floating">
-            <input
+        <div class="input-group">
+            <div class="form-floating">
+                <input
                     type="text"
                     class="form-control"
                     id="data"
                     name="data"
                     placeholder="Data"
-            >
-            <label for="data" class="form-label">Data</label>
+                >
+                <label for="data" class="form-label">Data</label>
+            </div>
+            <div class="form-floating">
+                <input
+                    type="text"
+                    class="form-control"
+                    id="surplus-data"
+                    name="surplus-data"
+                    placeholder="Data"
+                >
+                <label for="surplus-data" class="form-label">Surplus Data</label>
+            </div>
         </div>
         <div class="form-floating">
             <input

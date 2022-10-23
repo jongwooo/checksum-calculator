@@ -8,15 +8,23 @@ def home(request):
 
 def result(request):
     binary_pattern = re.compile('^[0-1]+$')
-    data, polynomial_code = request.GET['data'], request.GET['polynomial-code']
+    data, polynomial_code, surplus_data = \
+        request.GET['data'], request.GET['polynomial-code'], request.GET['surplus-data']
 
     if bool(binary_pattern.match(data)) and bool(binary_pattern.match(polynomial_code)):
         data = [int(d) for d in data]
         polynomial_code = [int(c) for c in polynomial_code]
-        surplus_data = [0 for _ in range(0, len(polynomial_code) - 1)]
+
+        if surplus_data == "":
+            surplus_data = [0 for _ in range(0, len(polynomial_code) - 1)]
+        elif bool(binary_pattern.match(surplus_data)) and len(surplus_data) == len(polynomial_code) - 1:
+            surplus_data = [int(s) for s in surplus_data]
+        else:
+            return render(request, 'error.html')
+
         return render(request, 'result.html', {'checksum': get_checksum(data, polynomial_code, surplus_data)})
-    else:
-        return render(request, 'error.html')
+
+    return render(request, 'error.html')
 
 
 def get_checksum(data, polynomial_code, surplus_data):
