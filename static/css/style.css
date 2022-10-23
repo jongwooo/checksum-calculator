@@ -1,0 +1,12 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+}
+
+.form-wrapper {
+    max-width: 330px;
+    padding: 15px;
+}
