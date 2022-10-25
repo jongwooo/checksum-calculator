@@ -7,7 +7,8 @@ def home(request):
 
 
 def result(request):
-    binary_pattern = re.compile('^[0-1]+$')
+    binary_pattern = re.compile('^1[01]*$')
+    surplus_pattern = re.compile('^[01]+$')
     data, polynomial_code, surplus_data = \
         request.GET['data'], request.GET['polynomial-code'], request.GET['surplus-data']
 
@@ -17,7 +18,7 @@ def result(request):
 
         if surplus_data == "":
             surplus_data = [0 for _ in range(0, len(polynomial_code) - 1)]
-        elif bool(binary_pattern.match(surplus_data)) and len(surplus_data) == len(polynomial_code) - 1:
+        elif bool(surplus_pattern.match(surplus_data)) and len(surplus_data) == len(polynomial_code) - 1:
             surplus_data = [int(s) for s in surplus_data]
         else:
             return render(request, 'error.html')
