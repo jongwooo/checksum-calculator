@@ -17,3 +17,4 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           use_build_manifest: true
+          use_docker: true
