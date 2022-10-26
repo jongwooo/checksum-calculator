@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p class="fs-5">
+    {% if is_valid %}
+    Checksum is <span class="text-primary">VALID</span>
+    {% else %}
+    Checksum is <span class="text-danger">INVALID</span>
+    {% endif %}
+</p>
+<a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+{% endblock %}
