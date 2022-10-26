@@ -32,7 +32,7 @@ def get_checksum(data, polynomial_code, surplus_data):
     data = data + surplus_data
     data_size, polynomial_code_size = len(data), len(polynomial_code)
     calculation_count = data_size - polynomial_code_size + 1
-    zero_quotient = [0 for _ in range(0, len(polynomial_code))]
+    zero_quotient = [0 for _ in range(0, polynomial_code_size)]
     temp = data[0:polynomial_code_size]
 
     for quotient_digit in range(0, calculation_count):
