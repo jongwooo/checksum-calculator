@@ -20,19 +20,19 @@ def result(request):
 
         if raw_remainder == "":
             remainder = [0 for _ in range(0, len(polynomial_code) - 1)]
-            checksum = get_checksum(data, polynomial_code, remainder)
+            checksum = calculate_checksum(data, polynomial_code, remainder)
             return render(request, 'result.html', {'checksum': ''.join(str(c) for c in checksum)})
 
         elif bool(remainder_pattern.match(raw_remainder)) and len(raw_remainder) == len(polynomial_code) - 1:
             remainder = [int(s) for s in raw_remainder]
             is_valid = \
-                get_checksum(data, polynomial_code, remainder) == [0 for _ in range(0, len(polynomial_code) - 1)]
+                calculate_checksum(data, polynomial_code, remainder) == [0 for _ in range(0, len(polynomial_code) - 1)]
             return render(request, 'validate.html', {'is_valid': is_valid})
 
     return render(request, 'error.html')
 
 
-def get_checksum(data, polynomial_code, remainder):
+def calculate_checksum(data, polynomial_code, remainder):
     dividend = data + remainder
     dividend_size, polynomial_code_size = len(dividend), len(polynomial_code)
     calculation_count = dividend_size - polynomial_code_size + 1
@@ -41,7 +41,7 @@ def get_checksum(data, polynomial_code, remainder):
     temp = dividend[0:polynomial_code_size]
 
     for quotient_digit in range(0, calculation_count):
-        temp = get_xor(temp, zero_quotient if temp[0] == 0 else polynomial_code)
+        temp = xor(temp, zero_quotient if temp[0] == 0 else polynomial_code)
 
         del temp[0]
         if quotient_digit != calculation_count - 1:
@@ -50,5 +50,5 @@ def get_checksum(data, polynomial_code, remainder):
     return temp
 
 
-def get_xor(list1, list2):
+def xor(list1, list2):
     return list(x ^ y for x, y in zip(list1, list2))
