@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: nyakaz73/heroku-django-deploy@v0.68
+      - uses: nyakaz73/heroku-django-deploy@v0.81
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_email_address: ${{ secrets.HEROKU_EMAIL_ADDRESS }}
